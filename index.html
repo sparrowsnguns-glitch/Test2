@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SecureSphere IT – IT-Sicherheit für den Mittelstand</title>
+  <meta name="description" content="Ganzheitliche IT-Sicherheitslösungen für den Mittelstand: Awareness, Serverhärtung, Virtualisierung, Cloud und AI-gestütztes Design. Kostenlose Erstberatung." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Performance: Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* === Grunddesign (zeitlos & modern) === */
+    :root {
+      --bg: #0f172a;          /* Dunkles Blau für IT-Seriosität */
+      --accent: #00b4d8;      /* Modernes Türkisblau */
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --card: #0f172a;
+      --card-border: #1e293b;
+      --accent-hover: #00a3c4;
+      --focus: 3px solid rgba(0,180,216,0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover, a:focus { text-decoration: underline; outline: none; }
+
+    /* Skip link (für Tastaturnutzung) */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      width: auto;
+      height: auto;
+      padding: 0.5rem 0.75rem;
+      background: #fff;
+      color: #0f172a;
+      border-radius: 4px;
+      z-index: 1000;
+    }
+
+    /* Focus-visible für bessere Zugänglichkeit */
+    :focus-visible {
+      box-shadow: var(--focus);
+      border-radius: 4px;
+    }
+
+    /* === Navigation === */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--accent);
+      letter-spacing: 0.6px;
+    }
+    .logo a { color: inherit; display: inline-flex; align-items: center; gap: .5rem; }
+
+    nav ul {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      align-items: center;
+    }
+    nav a {
+      color: var(--text);
+      transition: color 160ms ease, transform 160ms ease;
+    }
+    nav a:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* === Hero Section === */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 5.5rem 1.25rem;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+      line-height: 1.05;
+    }
+    .hero p {
+      max-width: 72ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero .cta {
+      background: var(--accent);
+      color: #0f172a;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.15s ease, transform 0.12s ease;
+      display: inline-block;
+    }
+    .hero .cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+    /* === Leistungen-Vorschau === */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      padding: 3rem 1.25rem;
+      background: #111827;
+    }
+    .service {
+      background: var(--card);
+      padding: 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      transition: transform 180ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .service:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(2,6,23,0.45);
+    }
+    .service h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.05rem; }
+    .service p { color: var(--muted); font-size: 0.95rem; }
+
+    /* === Footer === */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--card-border);
+      background: var(--bg);
+    }
+    footer a { color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { padding: 3.25rem 1rem; }
+      nav ul { flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Skip link für Screenreader / Tastaturnutzer -->
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <!-- === Header & Navigation === -->
+  <header role="banner">
+    <div class="logo" aria-hidden="false">
+      <a href="index.html" aria-label="SecureSphere IT Startseite">SecureSphere<span style="color:#fff;"> IT</span></a>
+    </div>
+
+    <nav role="navigation" aria-label="Hauptnavigation">
+      <ul>
+        <!-- Hinweis: Dateinamen mit Umlauten können auf manchen Servern/Toolchains Probleme machen.
+             Empfehlung: über.html -> ueber.html oder ueber.html per URL-encoding verwenden. -->
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="ueber.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" role="main">
+    <!-- === Hero Section === -->
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">IT-Sicherheit für den Mittelstand</h1>
+      <p>Ganzheitliche Lösungen für Ihre digitale Sicherheit – von Awareness‑Schulungen und Social Engineering bis hin zu Serverstruktur, Virtualisierung und AI‑gestütztem UI‑Design.</p>
+      <a href="kontakt.html" class="cta" role="button">Kostenlose Sicherheitsberatung anfragen</a>
+    </section>
+
+    <!-- === Leistungen Vorschau === -->
+    <section class="services" aria-label="Kurzüberblick unserer Leistungen">
+      <article class="service" aria-labelledby="s1-title">
+        <h3 id="s1-title">Awareness &amp; Schulung</h3>
+        <p>Machen Sie Ihre Mitarbeitenden zur ersten Verteidigungslinie gegen Phishing und Social Engineering.</p>
+      </article>
+
+      <article class="service" aria-labelledby="s2-title">
+        <h3 id="s2-title">IT-Infrastruktur &amp; Server</h3>
+        <p>Wir härten, sichern und überwachen Ihre Serverlandschaft für maximale Ausfallsicherheit.</p>
+      </article>
+
+      <article class="service" aria-labelledby="s3-title">
+        <h3 id="s3-title">Virtuelle Maschinen &amp; Cloud</h3>
+        <p>Sichere Virtualisierung und Cloud‑Architektur für effiziente, skalierbare Systeme.</p>
+      </article>
+
+      <article class="service" aria-labelledby="s4-title">
+        <h3 id="s4-title">UI / AI Design &amp; Web‑Stabilität</h3>
+        <p>Benutzerfreundliche, performante Oberflächen – sicher, modern und zuverlässig.</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- === Footer === -->
+  <footer role="contentinfo">
+    <p>© 2025 SecureSphere IT – Sichere Systeme für smarte Unternehmen · <a href="impressum.html">Impressum</a></p>
+  </footer>
+
+  <!-- OPTIONAL: kleines Inline-Script für progressive enhancement (keine Tracking/Analytics) -->
+  <script>
+    // Geringfügige enhancement: markiert "location.pathname" Navigation aktiv
+    (function () {
+      try {
+        const links = document.querySelectorAll('nav a');
+        const path = location.pathname.split('/').pop() || 'index.html';
+        links.forEach(a => {
+          const href = a.getAttribute('href');
+          if (href === path) {
+            a.setAttribute('aria-current', 'page');
+          }
+        });
+      } catch (e) { /* fail silently */ }
+    }());
+  </script>
+</body>
+</html>
