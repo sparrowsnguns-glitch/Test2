@@ -1,180 +1,494 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SecureSphere IT – Ganzheitliche Cyber-Security-Lösungen</title>
-<meta name="description" content="IT-Sicherheit für den Mittelstand: Penetration Tests, Awareness, Server-Härtung, AI-gestützte Sicherheitskonzepte. Kostenlose Sicherheitsanalyse!">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SecureSphere Atelier — Cyber-Security as Art</title>
+<meta name="description" content="Interaktives Security-Atelier: künstlerische One-Page mit Security Self-Check & Live-Page-Quickchecks — DSGVO-freundlich, lokal, ohne Tracking." />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0f172a; --accent:#00b4d8; --accent2:#0090b5;
-  --text:#f1f5f9; --muted:#94a3b8;
-}
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-header{
-  position:fixed;top:0;left:0;width:100%;
-  background:rgba(15,23,42,.95);backdrop-filter:blur(6px);
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1rem 2rem;z-index:100;border-bottom:1px solid #1e293b
-}
-.logo{font-weight:700;color:var(--accent);font-size:1.2rem;letter-spacing:.6px}
-nav ul{display:flex;gap:1.5rem;list-style:none}
-nav a{color:var(--text);text-decoration:none;transition:.2s}
-nav a:hover{color:var(--accent)}
-section{padding:6rem 1.5rem;max-width:1100px;margin:auto}
-.hero{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  min-height:100vh;background:radial-gradient(circle at 30% 20%,#1e293b 0%,#0f172a 100%);
-}
-.hero h1{font-size:clamp(1.8rem,3vw,3rem);color:var(--accent);margin-bottom:1rem}
-.hero p{color:var(--muted);max-width:65ch;font-size:1.1rem;margin-bottom:2rem}
-.hero .cta{background:var(--accent);color:#0f172a;padding:.9rem 1.5rem;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:.2s}
-.hero .cta:hover{background:var(--accent2);transform:translateY(-2px)}
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
-.service{background:#111827;border:1px solid #1e293b;padding:1.5rem;border-radius:12px;transition:.2s}
-.service:hover{border-color:var(--accent);transform:translateY(-4px)}
-.service h3{color:var(--accent);margin-bottom:.5rem}
-.service p{color:var(--muted)}
-.contact form{display:grid;gap:1rem;max-width:500px;margin:auto}
-input,textarea{padding:.7rem;border-radius:6px;border:1px solid #334155;background:#1e293b;color:var(--text);font-family:inherit}
-button{background:var(--accent);color:#0f172a;padding:.7rem 1rem;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:.2s}
-button:hover{background:var(--accent2)}
-footer{text-align:center;color:var(--muted);padding:2rem 1rem;font-size:.9rem;border-top:1px solid #1e293b}
-
-/* === Popup Security Widget === */
-#secuwidget {
-  position:fixed;bottom:2rem;right:2rem;background:#111827;
-  border:1px solid #1e293b;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);
-  width:320px;max-width:90vw;transform:translateY(120%);opacity:0;transition:.4s;
-  padding:1rem;z-index:999
-}
-#secuwidget.active{transform:translateY(0);opacity:1}
-#secuwidget h4{color:var(--accent);margin-bottom:.5rem}
-#secuwidget label{display:block;margin:.4rem 0}
-#secuwidget input[type=radio]{margin-right:.3rem}
-#secuwidget button{margin-top:.8rem;width:100%}
-.widget-toggle{
-  position:fixed;bottom:2rem;right:2rem;background:var(--accent);
-  color:#0f172a;border:none;border-radius:50%;width:52px;height:52px;
-  font-size:1.4rem;font-weight:700;cursor:pointer;box-shadow:0 4px 10px rgba(0,180,216,.3);
-  transition:.2s;z-index:998
-}
-.widget-toggle:hover{background:var(--accent2)}
-#result{margin-top:.6rem;text-align:center;font-weight:600;padding:.4rem;border-radius:6px}
-@media(max-width:700px){
-  nav ul{gap:1rem;flex-wrap:wrap;justify-content:center}
-}
+  /* ====== Theme & base ====== */
+  :root{
+    --bg:#05060a;
+    --panel:#0c1116;
+    --glass: rgba(255,255,255,0.03);
+    --accent1: #00d4ff;
+    --accent2: #7a00ff;
+    --muted: #98a4b3;
+    --text: #e8f0ff;
+    --success: #17e3a3;
+    --warn: #ffb86b;
+    --danger: #ff6b6b;
+    --glass-border: rgba(255,255,255,0.04);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:"Inter",system-ui,-apple-system,Segoe UI, Roboto,'Helvetica Neue',Arial;}
+  a{color:inherit}
+  .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .skip:focus{left:1rem;top:1rem;width:auto;height:auto;padding:.5rem .75rem;background:#fff;color:#000;border-radius:6px;z-index:10000}
+  main{min-height:100vh;position:relative;overflow:hidden}
+  header{position:fixed;top:0;left:0;right:0;z-index:40;padding:.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(8,10,14,0.55), rgba(8,10,14,0.25));border-bottom:1px solid rgba(255,255,255,0.02)}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:.4px}
+  .brand .logo-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:0 6px 18px rgba(122,0,255,.18), 0 0 28px rgba(0,212,255,.08)}
+  nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+  nav a{color:var(--muted);text-decoration:none;padding:.35rem .45rem;border-radius:6px;transition:all .18s ease}
+  nav a:hover, nav a[aria-current="page"]{color:var(--text);background:linear-gradient(90deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 22px rgba(0,0,0,.6)}
+  header .cta{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#031024;padding:.5rem .9rem;border-radius:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(0,212,255,.08)}
+  /* ===== Hero: art + content ===== */
+  .hero{
+    min-height:100vh;display:grid;align-items:center;grid-template-columns:1fr;place-items:center;padding:6rem 1.2rem;
+    position:relative;z-index:2;
+  }
+  .hero .canvas-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .hero .glass {
+    width:min(1100px,94%);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:18px;padding:2.4rem;display:grid;grid-template-columns:1fr 420px;gap:1.5rem;align-items:center;backdrop-filter: blur(10px);
+    border:1px solid var(--glass-border);box-shadow: 0 20px 80px rgba(2,6,23,0.6);
+    position:relative;z-index:3;overflow:hidden;
+  }
+  .hero h1{font-size:clamp(1.6rem,4vw,3rem);margin:0 0 .5rem;color:linear-gradient(90deg,var(--accent1),var(--accent2));}
+  .hero p{color:var(--muted);line-height:1.5;margin:0 0 1rem}
+  .hero .cta-rows{display:flex;flex-direction:column;gap:.7rem}
+  .big-cta{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#021226;padding:.75rem 1.1rem;border-radius:12px;border:none;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(0,212,255,.06);transition:transform .18s}
+  .big-cta:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,212,255,.08)}
+  /* right panel - artwork + short stats */
+  .right-panel{display:flex;flex-direction:column;gap:1rem;align-items:stretch}
+  .art-card{height:260px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;background:linear-gradient(180deg,rgba(0,0,0,0.12),rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center}
+  .stats{display:flex;gap:.8rem;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.35));border-radius:10px;padding:.6rem;border:1px solid rgba(255,255,255,0.02)}
+  .stat{flex:1;text-align:center}
+  .stat h4{margin:0;color:var(--accent1);font-size:1.05rem}
+  .stat p{margin:0;color:var(--muted);font-size:.85rem}
+  /* ===== Sections ===== */
+  section.card-section{padding:4rem 1.2rem 6rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:1100px;margin:0 auto}
+  .card{background:var(--panel);border-radius:12px;padding:1.2rem;border:1px solid rgba(255,255,255,0.02);box-shadow:0 12px 40px rgba(2,6,23,0.5);transition:transform .18s, box-shadow .18s}
+  .card:hover{transform:translateY(-8px);box-shadow:0 30px 70px rgba(2,6,23,0.7)}
+  .card h3{color:var(--accent2);margin-bottom:.5rem}
+  .card p{color:var(--muted);font-size:.95rem}
+  /* security check CTA */
+  .check-cta{display:flex;gap:1rem;justify-content:center;margin-top:1rem}
+  /* footer */
+  footer{padding:2rem 1.2rem;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);position:relative;z-index:2}
+  /* ===== Popup widget styling ===== */
+  .widget-toggle{position:fixed;right:2.2rem;bottom:2.2rem;z-index:200;background:linear-gradient(135deg,var(--accent1),var(--accent2));border-radius:14px;padding:.6rem .8rem;border:none;color:#021226;font-weight:800;cursor:pointer;box-shadow:0 18px 60px rgba(0,212,255,.08)}
+  .atelier{
+    position:fixed;right:2.2rem;bottom:6.6rem;width:380px;max-width:94vw;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));border-radius:14px;padding:1rem;border:1px solid rgba(255,255,255,0.03);z-index:200;box-shadow:0 30px 90px rgba(2,6,23,0.6);transform:translateY(24px);opacity:0;transition:all .3s;backdrop-filter: blur(6px)}
+  .atelier.open{transform:translateY(0);opacity:1}
+  .atelier h4{margin:0;color:var(--accent1);font-size:1.05rem}
+  .atelier .section{margin-top:.6rem}
+  .atelier label{display:block;font-size:.95rem;color:var(--muted);margin:.45rem 0}
+  .atelier input[type="radio"]{margin-right:.4rem}
+  .atelier .run{display:flex;gap:.45rem;margin-top:.6rem}
+  .atelier .run button{flex:1;padding:.6rem;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+  .btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#021226}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+  .result{margin-top:.6rem;padding:.55rem;border-radius:8px;font-weight:700;text-align:center}
+  .todo{margin-top:.6rem;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:.6rem;border-radius:8px;border:1px dashed rgba(255,255,255,0.03);color:var(--muted);font-size:.9rem}
+  /* responsive */
+  @media (max-width:980px){.hero .glass{grid-template-columns:1fr;gap:1rem}.right-panel{order:2}.hero{padding-top:5.6rem}}
+  @media (max-width:560px){header{padding:.7rem 1rem}.brand{font-size:.95rem}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">SecureSphere<span style="color:#fff"> IT</span></div>
-  <nav><ul>
-    <li><a href="#start">Start</a></li>
-    <li><a href="#leistungen">Leistungen</a></li>
-    <li><a href="#check">Security-Check</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul></nav>
-</header>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
 
-<section id="start" class="hero">
-  <h1>Ganzheitliche IT-Sicherheit für smarte Unternehmen</h1>
-  <p>Wir schützen mittelständische Unternehmen vor Cyberangriffen – mit Penetration-Tests, Awareness-Trainings und modernster Infrastruktur-Härtung. 
-  <br><br><strong>100 % unabhängig · 100 % in Deutschland</strong></p>
-  <a href="#check"><button class="cta">Jetzt Sicherheits-Check starten</button></a>
-</section>
+  <header>
+    <div class="brand"><span class="logo-dot" aria-hidden="true"></span>SecureSphere Atelier</div>
+    <nav aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#start">Start</a></li>
+        <li><a href="#offer">Leistungen</a></li>
+        <li><a href="#check">Security-Check</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+    <button class="cta" onclick="document.querySelector('#check .big').scrollIntoView({behavior:'smooth'})">Kostenlose Erstberatung</button>
+  </header>
 
-<section id="leistungen">
-  <h2 style="text-align:center;color:var(--accent);margin-bottom:2rem;">Unsere Leistungen</h2>
-  <div class="services">
-    <div class="service">
-      <h3>Penetration Testing</h3>
-      <p>Identifizieren Sie Schwachstellen, bevor Angreifer sie finden – intern, extern und Cloud-basiert.</p>
+  <main id="main">
+    <!-- generative canvas background -->
+    <div class="hero">
+      <div class="canvas-wrap" aria-hidden="true">
+        <canvas id="bgc" style="width:100%;height:100%;display:block"></canvas>
+        <!-- subtle SVG noise overlay -->
+        <svg style="position:absolute;inset:0;z-index:1;pointer-events:none" preserveAspectRatio="none" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="rgba(0,212,255,0.05)"/><stop offset="1" stop-color="rgba(122,0,255,0.04)"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="100" height="100" fill="url(#lg)"/>
+        </svg>
+      </div>
+
+      <div class="glass" role="region" aria-label="Hero Panel">
+        <div style="padding-right:1.2rem;">
+          <h1 style="margin-bottom:.4rem">Cyber-Security — technisch & poetisch</h1>
+          <p>Ein interaktives Atelier, das Kunst und Sicherheit verbindet. Testen Sie Ihre Abwehrkraft, bekommen Sie sofort priorisierte To-Dos und erleben Sie einen visuellen Qualitäts-Check Ihrer Seite.</p>
+          <div class="cta-rows">
+            <button class="big-cta" onclick="openWidget()">Security-Atelier öffnen</button>
+            <div style="display:flex;gap:.6rem;align-items:center">
+              <small style="color:var(--muted)">Quick-metrics:</small>
+              <div class="stats" role="list" aria-hidden="false" style="margin-left:.6rem">
+                <div class="stat"><h4 id="s-proto">--</h4><p>Protokoll</p></div>
+                <div class="stat"><h4 id="s-mix">--</h4><p>Mixed Content</p></div>
+                <div class="stat"><h4 id="s-cook">--</h4><p>Cookies</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right-panel" aria-hidden="false">
+          <div class="art-card" id="artcard" title="Generative artwork — hover to interact"></div>
+          <div style="display:flex;gap:.6rem">
+            <div class="stat" style="flex:1"><h4>99%</h4><p>Regelmäßige Tests</p></div>
+            <div class="stat" style="flex:1"><h4>24/7</h4><p>Monitoring</p></div>
+          </div>
+        </aside>
+      </div>
     </div>
-    <div class="service">
-      <h3>Awareness & Social Engineering</h3>
-      <p>Ihre Mitarbeitenden als stärkste Verteidigungslinie – Schulungen, Phishing-Simulationen & Security-Kultur.</p>
+
+    <!-- services as art-card section -->
+    <section id="offer" class="card-section" aria-labelledby="offer-title">
+      <h2 id="offer-title" style="text-align:center;color:var(--accent2);margin-bottom:1rem">Unsere Leistungen (Auszug)</h2>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
+          <h3>Penetration Testing & Red Team</h3>
+          <p>Realitätsnahe Angriffe, Business-context aware: Wir prüfen Web, Netzwerk, Cloud und menschliche Faktoren.</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>Awareness & Simulated Phishing</h3>
+          <p>Kontinuierliche Schulungen mit messbaren KPIs, adaptiven Lernpfaden und Reporting für Manager.</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>Cloud-Härtung & IaC Review</h3>
+          <p>Secure by design: Policies, IAM, Secrets Management, Infrastructure as Code Reviews (Terraform, ARM).</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>Incident Response & Forensics</h3>
+          <p>Schnelle Incident-Containment, Beweissicherung und Wiederherstellung mit dokumentierten Playbooks.</p>
+        </article>
+      </div>
+      <div class="check-cta">
+        <button class="big-cta" style="max-width:320px" onclick="openWidget()">Sofort testen — Security-Atelier</button>
+      </div>
+    </section>
+
+    <!-- security check anchor -->
+    <section id="check" class="card-section" aria-labelledby="check-title">
+      <h2 id="check-title" style="text-align:center;color:var(--accent2);margin-bottom:.4rem">Security-Atelier (Mini-Selfcheck)</h2>
+      <p style="text-align:center;color:var(--muted);max-width:80ch;margin:0 auto 1rem">Beantworten Sie 6 kurze Fragen — die Auswertung kombiniert Antworten mit einer Live-Page-Quick-Analyse (nur lokal, nichts wird gesendet).</p>
+
+      <div style="max-width:900px;margin:1.2rem auto;display:grid;grid-template-columns:1fr 340px;gap:1rem">
+        <div>
+          <div class="card" style="margin-bottom:1rem">
+            <h3 style="margin-bottom:.6rem">Interaktiver Self-Check</h3>
+            <p style="color:var(--muted);margin-top:0">Antworte ehrlich — wir geben eine priorisierte To-Do Liste.</p>
+            <ol id="q-list" style="color:var(--muted);margin-top:.8rem">
+              <li>Ist 2-Faktor überall aktiviert?</li>
+              <li>Gibt es regelmäßige Phishing-Tests?</li>
+              <li>Werden Patches zeitnah eingespielt?</li>
+              <li>Existiert ein getestetes Backup-Konzept?</li>
+              <li>Nutzen Sie sichere Cloud-Provider mit EU-Hosting?</li>
+              <li>Sind TLS/SSL & HSTS überall aktiv?</li>
+            </ol>
+            <div style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap">
+              <button class="btn-ghost" onclick="autoFillYes()">Alles Ja (Demo)</button>
+              <button class="btn-ghost" onclick="autoFillNo()">Alles Nein (Demo)</button>
+              <button class="btn-primary" onclick="openWidget()">Check jetzt</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Live-Page Quickchecks (automatisch)</h3>
+            <p style="color:var(--muted)">Wir scannen deine Seite clientseitig und zeigen Hinweise — kein Netzwerk-Upload.</p>
+            <ul id="quickchecks" style="color:var(--muted);margin-top:.6rem"></ul>
+            <div style="margin-top:.8rem">
+              <button class="btn-ghost" onclick="runQuickChecks()">Quickcheck neu ausführen</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3>Auswertung & To-Dos</h3>
+          <div id="atelier-result" style="margin-top:.6rem;font-weight:700;color:var(--muted)">Noch kein Ergebnis — starte den Check.</div>
+          <div id="todo-list" class="todo" style="display:none"></div>
+          <div style="margin-top:.6rem">
+            <button class="btn-primary" onclick="copyToClipboard()">To-Dos kopieren</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="contact" class="card-section" aria-labelledby="contact-title">
+      <h2 id="contact-title" style="text-align:center;color:var(--accent2);margin-bottom:.6rem">Kontakt</h2>
+      <div style="max-width:800px;margin:0 auto">
+        <div class="card" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+          <div style="flex:1;min-width:220px">
+            <h3>Sie wollen mehr als einen Quickcheck?</h3>
+            <p style="color:var(--muted)">Buchen Sie eine kostenlose Erstberatung: 30 Minuten, remote oder vor Ort. Wir liefern Audit-Roadmap & Budgetrahmen.</p>
+          </div>
+          <form onsubmit="event.preventDefault();alert('Danke — Demo: Formular nicht verbunden.')" style="min-width:240px;display:flex;flex-direction:column;gap:.6rem">
+            <input type="text" placeholder="Name" required style="padding:.6rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);background:transparent;color:var(--text)">
+            <input type="email" placeholder="E-Mail" required style="padding:.6rem;border-radius:8px;border:1px solid rgba(255,255,255,.03);background:transparent;color:var(--text)">
+            <button class="btn-primary" type="submit">Beratung anfragen</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 SecureSphere Atelier — Kunst & Cyber-Security · <a href="#" style="color:var(--accent1)">Impressum</a>
+    </footer>
+  </main>
+
+  <!-- Widget toggle + Atelier -->
+  <button class="widget-toggle" id="toggleBtn" aria-expanded="false" aria-controls="atelier" title="Security Atelier" onclick="openWidget()">★</button>
+
+  <div class="atelier" id="atelier" role="dialog" aria-labelledby="atelier-title" aria-hidden="true">
+    <h4 id="atelier-title">Security-Atelier — Mini-Check</h4>
+
+    <div class="section">
+      <label>1. Nutzen Sie 2-Faktor überall?</label>
+      <label><input type="radio" name="cq1" value="1"> Ja</label><label><input type="radio" name="cq1" value="0"> Nein</label>
     </div>
-    <div class="service">
-      <h3>Server- und Netzwerk-Härtung</h3>
-      <p>Von Firewalls über SIEM-Integration bis Zero-Trust-Konzepte – wir sichern Ihre Infrastruktur ganzheitlich.</p>
+    <div class="section">
+      <label>2. Regelmäßige Phishing-Tests?</label>
+      <label><input type="radio" name="cq2" value="1"> Ja</label><label><input type="radio" name="cq2" value="0"> Nein</label>
     </div>
-    <div class="service">
-      <h3>Incident Response</h3>
-      <p>Schnelle Reaktion im Ernstfall: Forensik, Eindämmung, Wiederherstellung und Lessons Learned.</p>
+    <div class="section">
+      <label>3. Patches zeitnah?</label>
+      <label><input type="radio" name="cq3" value="1"> Ja</label><label><input type="radio" name="cq3" value="0"> Nein</label>
     </div>
+    <div class="section">
+      <label>4. Getestetes Backup?</label>
+      <label><input type="radio" name="cq4" value="1"> Ja</label><label><input type="radio" name="cq4" value="0"> Nein</label>
+    </div>
+    <div class="section">
+      <label>5. TLS/HSTS überall?</label>
+      <label><input type="radio" name="cq5" value="1"> Ja</label><label><input type="radio" name="cq5" value="0"> Nein</label>
+    </div>
+    <div class="section">
+      <label>6. Externe Widgets DSGVO-konform?</label>
+      <label><input type="radio" name="cq6" value="1"> Ja</label><label><input type="radio" name="cq6" value="0"> Nein</label>
+    </div>
+
+    <div class="run">
+      <button class="btn-primary" onclick="runAtelier()">Auswerten</button>
+      <button class="btn-ghost" onclick="closeWidget()">Schließen</button>
+    </div>
+
+    <div id="atelier-output" style="margin-top:.6rem"></div>
   </div>
-</section>
-
-<section id="check">
-  <h2 style="text-align:center;color:var(--accent);margin-bottom:1rem;">Security-Selbstcheck</h2>
-  <p style="text-align:center;color:var(--muted);margin-bottom:2rem;">Wie gut ist Ihr Unternehmen aktuell abgesichert?<br>Beantworten Sie 5 Fragen – anonym und ohne Datenspeicherung.</p>
-  <div style="display:flex;justify-content:center;">
-    <button class="cta" onclick="toggleWidget()">Check jetzt starten</button>
-  </div>
-</section>
-
-<section id="kontakt" class="contact">
-  <h2 style="text-align:center;color:var(--accent);margin-bottom:1rem;">Kontakt aufnehmen</h2>
-  <form>
-    <input type="text" placeholder="Name" required>
-    <input type="email" placeholder="E-Mail" required>
-    <textarea rows="4" placeholder="Ihre Nachricht"></textarea>
-    <button type="submit">Nachricht senden</button>
-  </form>
-</section>
-
-<footer>
-  © 2025 SecureSphere IT – Sichere Systeme für smarte Unternehmen · 
-  <a href="#" style="color:var(--accent)">Impressum</a>
-</footer>
-
-<!-- === Popup Widget === -->
-<button class="widget-toggle" onclick="toggleWidget()">☰</button>
-<div id="secuwidget">
-  <h4>Mini-Security-Check</h4>
-  <form id="quiz">
-    <label>1. Nutzen Sie Zwei-Faktor-Authentifizierung?<br>
-      <input type="radio" name="q1" value="1"> Ja
-      <input type="radio" name="q1" value="0"> Nein
-    </label>
-    <label>2. Schulungen zu Phishing-Angriffen?<br>
-      <input type="radio" name="q2" value="1"> Ja
-      <input type="radio" name="q2" value="0"> Nein
-    </label>
-    <label>3. Regelmäßige Software-Updates?<br>
-      <input type="radio" name="q3" value="1"> Ja
-      <input type="radio" name="q3" value="0"> Nein
-    </label>
-    <label>4. Backup-Strategie getestet?<br>
-      <input type="radio" name="q4" value="1"> Ja
-      <input type="radio" name="q4" value="0"> Nein
-    </label>
-    <label>5. SSL/TLS auf allen Systemen aktiv?<br>
-      <input type="radio" name="q5" value="1"> Ja
-      <input type="radio" name="q5" value="0"> Nein
-    </label>
-    <button type="submit">Ergebnis anzeigen</button>
-  </form>
-  <div id="result"></div>
-</div>
 
 <script>
-function toggleWidget(){
-  document.getElementById('secuwidget').classList.toggle('active');
+/* =========================
+   Generative background + artcard
+   ========================= */
+(function(){
+  const c = document.getElementById('bgc'), ctx = c.getContext('2d');
+  let W = c.width = innerWidth, H = c.height = innerHeight;
+  window.addEventListener('resize',()=>{W=c.width=innerWidth;H=c.height=innerHeight;init()});
+  const pts = [];
+  const grid = 28;
+  function init(){
+    pts.length=0;
+    for(let y=0;y<=grid;y++){
+      for(let x=0;x<=grid;x++){
+        pts.push({x: x/grid*W + (Math.random()-0.5)*W*0.02, y: y/grid*H + (Math.random()-0.5)*H*0.02, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2});
+      }
+    }
+  }
+  init();
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // subtle background gradient
+    let g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,'rgba(2,6,23,0.7)');
+    g.addColorStop(1,'rgba(8,12,22,0.7)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    // draw connections
+    ctx.globalCompositeOperation = 'lighter';
+    for(let i=0;i<pts.length;i++){
+      const p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < -50) p.x = W+50; if(p.x>W+50) p.x=-50;
+      if(p.y < -50) p.y = H+50; if(p.y>H+50) p.y=-50;
+      for(let j=i+1;j<pts.length;j++){
+        const q = pts[j];
+        const dx = p.x-q.x, dy = p.y-q.y, d = Math.hypot(dx,dy);
+        if(d<160){
+          ctx.strokeStyle = 'rgba(0,212,255,'+ (0.08*(1-d/160)) +')';
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+        }
+      }
+    }
+    // floating specks
+    for(let k=0;k<24;k++){
+      ctx.fillStyle = 'rgba(0,212,255,0.02)';
+      ctx.beginPath(); ctx.arc((W/24*k + (Date.now()/200)%W)%W, (H/6*Math.sin((Date.now()/1000)+k))%H, 2, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  // small generative art in card (use SVG-like shapes on canvas)
+  const art = document.getElementById('artcard'), actx = art.getContext('2d');
+  function resizeArt(){ art.width = art.clientWidth; art.height= art.clientHeight; renderArt() }
+  window.addEventListener('resize', resizeArt); resizeArt();
+  function renderArt(){
+    const W=art.width, H=art.height;
+    actx.clearRect(0,0,W,H);
+    // background radial
+    let g = actx.createRadialGradient(W*0.2,H*0.2,10,W*0.8,H*0.8,Math.max(W,H));
+    g.addColorStop(0,'rgba(0,212,255,0.06)'); g.addColorStop(1,'rgba(122,0,255,0.02)');
+    actx.fillStyle=g; actx.fillRect(0,0,W,H);
+    // layered blobs
+    for(let i=0;i<6;i++){
+      actx.beginPath();
+      const r = Math.min(W,H)*0.25*(0.6 + i*0.08);
+      const cx = W*0.5 + Math.cos((Date.now()/1200)+i)*W*0.06;
+      const cy = H*0.45 + Math.sin((Date.now()/900)+i)*H*0.04;
+      actx.ellipse(cx,cy,r,r*0.6,Math.PI/6*i,0,Math.PI*2);
+      actx.fillStyle = `rgba(${10+i*30}, ${80+i*20}, ${200-i*20}, ${0.06+i*0.04})`;
+      actx.fill();
+    }
+    // frame
+    actx.strokeStyle = 'rgba(255,255,255,0.02)'; actx.lineWidth=1; actx.strokeRect(6,6,W-12,H-12);
+    requestAnimationFrame(renderArt);
+  }
+})();
+
+/* =========================
+   Widget logic & quick checks
+   ========================= */
+const atelier = document.getElementById('atelier'), toggleBtn = document.getElementById('toggleBtn'), atelierOutput = document.getElementById('atelier-output');
+function openWidget(){ atelier.classList.add('open'); atelier.setAttribute('aria-hidden','false'); toggleBtn.setAttribute('aria-expanded','true') }
+function closeWidget(){ atelier.classList.remove('open'); atelier.setAttribute('aria-hidden','true'); toggleBtn.setAttribute('aria-expanded','false') }
+function runAtelier(){
+  // gather radio values
+  const vals = [];
+  for(let i=1;i<=6;i++){ const v = document.querySelector(`input[name="cq${i}"]:checked`); vals.push(v?Number(v.value):0) }
+  const score = vals.reduce((a,b)=>a+b,0);
+  let level = '', color = '';
+  if(score>=5){ level='🟢 Sehr gut – geringe Angriffsfläche'; color='var(--success)'; }
+  else if(score>=3){ level='🟠 Solide – priorisierte Maßnahmen empfohlen'; color='var(--warn)'; }
+  else { level='🔴 Kritisch – dringend handeln'; color='var(--danger)'; }
+  atelierOutput.innerHTML = `<div style="padding:.45rem;border-radius:8px;background:rgba(255,255,255,0.02);font-weight:700;color:${color}">${level}</div>`;
+  // run quick page checks and merge into ToDos
+  const quick = runQuickChecks();
+  const todos = generateTodos(score, quick);
+  showTodos(todos);
 }
-const quiz=document.getElementById('quiz'),res=document.getElementById('result');
-quiz.addEventListener('submit',e=>{
-  e.preventDefault();
-  let score=0;new FormData(quiz).forEach(v=>score+=+v);
-  let txt,clr;
-  if(score>=4){txt='🟢 Sehr gut abgesichert';clr='rgba(0,255,150,.15)'}
-  else if(score>=2){txt='🟠 Solide, aber optimierbar';clr='rgba(255,180,0,.15)'}
-  else{txt='🔴 Kritisch – Handlungsbedarf!';clr='rgba(255,0,0,.15)'}
-  res.textContent=txt;res.style.background=clr;
+
+/* Quick page checks (client-side, best-effort, no external calls) */
+function runQuickChecks(){
+  const checks = [];
+  // 1) protocol
+  const proto = location.protocol === 'https:' ? 'https' : 'http';
+  document.getElementById('s-proto').textContent = proto.toUpperCase();
+  checks.push({id:'protocol', ok: proto==='https', detail:`Seite über ${proto}`});
+  // 2) search for http: in resources (mixed content candidates)
+  let mixed = false;
+  const tags = [...document.querySelectorAll('img, script, iframe, link, source, video, audio')];
+  const mixedList = [];
+  tags.forEach(el=>{
+    const src = el.getAttribute('src') || el.getAttribute('href') || el.getAttribute('data-src') || '';
+    if(src && src.trim().startsWith('http://')){ mixed = true; mixedList.push(src); }
+  });
+  document.getElementById('s-mix').textContent = mixed ? '⚠️' : '✓';
+  checks.push({id:'mixed', ok: !mixed, detail: mixed ? `Unsichere Ressourcen: ${mixedList.slice(0,3).join(', ')}` : 'Keine http:// Ressourcen gefunden'});
+  // 3) cookies enabled?
+  const cookiesEnabled = navigator.cookieEnabled;
+  document.getElementById('s-cook').textContent = cookiesEnabled ? '✓' : '⚠️';
+  checks.push({id:'cookies', ok: cookiesEnabled, detail: cookiesEnabled ? 'Cookies aktiviert' : 'Cookies deaktiviert oder blockiert'});
+  // 4) CSP presence (best-effort)
+  let cspPresent = false;
+  try{
+    // document.querySelector can't access response headers; best-effort: check meta http-equiv
+    const meta = document.querySelector('meta[http-equiv="Content-Security-Policy"]');
+    if(meta) cspPresent = true;
+    // try to guess from securitypolicy? cannot read response headers from JS without server
+  }catch(e){}
+  checks.push({id:'csp', ok:cspPresent, detail: cspPresent ? 'CSP meta tag found' : 'Keine CSP meta gefunden (Header nicht prüfbar clientseitig)'});
+  // 5) HSTS hint (best-effort)
+  let hsts = false;
+  // can't read response headers; hint: if protocol isn't https, HSTS not set
+  if(location.protocol==='https:') hsts = false; // unknown; user must check server
+  checks.push({id:'hsts', ok:hsts, detail: hsts ? 'HSTS vermutlich aktiv' : 'HSTS nicht prüfbar clientseitig — prüfen via server/SSL Labs'});
+  // render quickchecks
+  const ul = document.getElementById('quickchecks'); ul.innerHTML='';
+  checks.forEach(c=>{
+    const li=document.createElement('li'); li.style.marginBottom='.35rem';
+    li.textContent = `${c.ok ? '✓' : '⚠'} ${c.detail}`;
+    ul.appendChild(li);
+  });
+  return checks;
+}
+
+/* Generate prioritized ToDos based on answers & quick checks */
+function generateTodos(score, quick){
+  const todos = [];
+  // from score
+  if(score<3) todos.push({prio:1,text:'Ein Notfall-Plan & getestete Backups implementieren und dokumentieren.'});
+  if(score<5) todos.push({prio:2,text:'Zwei-Faktor-Authentifizierung systemweit erzwingen (MFA).' });
+  if(score<4) todos.push({prio:2,text:'Regelmäßige Patch-Policy einführen und SLA für kritische Patches.'});
+  todos.push({prio:3,text:'Awareness Programm starten: Phishing-Simulation + Reporting.'});
+  // from quick checks
+  quick.forEach(c=>{
+    if(c.id==='protocol' && !c.ok) todos.unshift({prio:0,text:'HTTPS erzwingen: Zertifikat installieren und HSTS aktivieren (Let\'s Encrypt möglich).'});
+    if(c.id==='mixed' && !c.ok) todos.unshift({prio:0,text:'Mixed Content reparieren: Alle Ressourcen auf HTTPS umstellen.'});
+    if(c.id==='csp' && !c.ok) todos.push({prio:3,text:'Content Security Policy konfigurieren (start with default-src \'self\';).'});
+  });
+  // dedupe & sort
+  const unique = [];
+  todos.forEach(t=>{ if(!unique.find(u=>u.text===t.text)) unique.push(t) });
+  unique.sort((a,b)=>a.prio-b.prio);
+  return unique;
+}
+
+function showTodos(todos){
+  const holder = document.getElementById('todo-list'); holder.style.display='block';
+  holder.innerHTML = '<strong>Priorisierte To-Dos</strong><ol style="margin:.4rem 0 0 1rem;color:var(--muted)">' + todos.map(t=>`<li>${t.text}</li>`).join('') + '</ol>';
+  document.getElementById('atelier-result').textContent = 'Ergebnis erzeugt — To-Dos unten';
+}
+
+/* copy to clipboard */
+function copyToClipboard(){
+  const holder = document.getElementById('todo-list');
+  if(!holder || holder.style.display==='none') return alert('Keine ToDos vorhanden.');
+  const text = Array.from(holder.querySelectorAll('li')).map(li=>li.textContent).join('\n- ');
+  navigator.clipboard?.writeText('- '+text).then(()=>alert('To-Dos kopiert'),()=>alert('Kopieren nicht möglich'));
+}
+
+/* small helpers for demo */
+function autoFillYes(){ document.querySelectorAll('.card button.btn-ghost')[0].blur(); openWidget(); const arr = [1,1,1,1,1,1]; arr.forEach((v,i)=>{ const r = document.querySelector(`input[name="cq${i+1}"][value="${v}"]`); if(r) r.checked=true }); runAtelier() }
+function autoFillNo(){ openWidget(); const arr = [0,0,0,0,0,0]; arr.forEach((v,i)=>{ const r = document.querySelector(`input[name="cq${i+1}"][value="${v}"]`); if(r) r.checked=true }); runAtelier() }
+
+/* wire quickchecks at load & update header metrics */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const q = runQuickChecks();
+  // set quick metric visuals earlier
+  document.getElementById('s-proto').style.opacity = 1;
 });
+
+/* Smooth scrolling: mark current nav */
+const navLinks = document.querySelectorAll('nav a');
+function markNav(){
+  const fromTop = pageYOffset + 120;
+  navLinks.forEach(link=>{
+    const section = document.querySelector(link.getAttribute('href'));
+    if(section){
+      if(section.offsetTop <= fromTop && (section.offsetTop + section.offsetHeight) > fromTop){
+        link.setAttribute('aria-current','page');
+      } else link.removeAttribute('aria-current');
+    }
+  });
+}
+document.addEventListener('scroll', markNav); markNav();
+
+/* Accessibility: close widget with Escape */
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeWidget() });
 </script>
 </body>
 </html>
