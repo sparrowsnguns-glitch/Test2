@@ -3,7 +3,6 @@
   --bg2:#12202b;
   --accent:#c72c48;
   --muted:rgba(255,255,255,0.75);
-  --glass: rgba(255,255,255,0.04);
 }
 
 *{box-sizing:border-box;}
@@ -14,61 +13,81 @@ body{
 }
 #snow{position:fixed; inset:0; z-index:0; pointer-events:none;}
 
-.wrap{position:relative; z-index:2; max-width:1100px; margin:36px auto; padding:28px;}
-header{display:flex; align-items:flex-start; gap:14px; margin-bottom:16px;}
+.wrap{position:relative; z-index:2; max-width:1100px; margin:36px auto; padding:28px; text-align:center;}
+header{margin-bottom:24px;}
 .logo{
-  width:66px; height:66px; border-radius:12px;
+  width:60px; height:60px; border-radius:12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
   border:1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; justify-content:center; color:var(--accent);
-  font-weight:700; font-size:1.25rem; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  display:inline-flex; align-items:center; justify-content:center; color:var(--accent);
+  font-weight:700; font-size:1.2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
-.titles h1{margin:0;color:var(--accent);font-size:2rem;letter-spacing:1px;}
-.lead{margin:4px 0 0;color:var(--muted);font-size:1rem;}
+.titles h1{margin:8px 0 4px;color:var(--accent);font-size:2rem;}
+.lead{margin:0;color:var(--muted);font-size:1rem;}
 
 .calendar{
-  display:grid; grid-template-columns:repeat(6,1fr); gap:18px; margin-top:18px;
+  display:grid; grid-template-columns:repeat(6,1fr); gap:16px; justify-content:center;
+  margin-top:16px;
 }
 .tile{
-  position:relative; height:140px; border-radius:14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-  border: 1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:700; font-size:1.6rem; cursor:pointer;
+  position:relative; width:100%; height:140px; cursor:pointer;
   perspective:800px;
-  transition: transform .28s, box-shadow .28s, background .28s;
-  box-shadow: 0 8px 30px rgba(2,6,10,0.45); overflow:hidden; backdrop-filter:blur(6px);
 }
-.tile:hover{ transform: translateY(-8px) scale(1.02); box-shadow:0 18px 50px rgba(2,6,10,0.6);}
 .tile-inner{
-  width:100%; height:100%; border-radius:14px;
-  display:flex; align-items:center; justify-content:center;
-  transition: transform .6s; transform-style: preserve-3d;
-  position:relative;
+  width:100%; height:100%; border-radius:12px;
+  transition: transform 0.8s; transform-style: preserve-3d;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 }
+.tile:hover .tile-inner{ transform: translateY(-6px) scale(1.03); }
 .tile.open .tile-inner{ transform: rotateY(180deg); }
+
 .tile-front, .tile-back{
-  position:absolute; width:100%; height:100%; border-radius:14px;
+  position:absolute; width:100%; height:100%; border-radius:12px;
   backface-visibility:hidden; display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
 }
-.tile-front{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); color:#fff;}
+.tile-front{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  font-weight:700; font-size:1.5rem; color:#fff;
+}
 .tile-back{
   background: linear-gradient(180deg,#fff,#f6f6f6);
-  color:var(--accent); transform: rotateY(180deg);
-  flex-direction: column;
+  color:var(--accent); transform: rotateY(180deg); font-weight:600; font-size:1rem;
+  position:relative;
+  overflow:hidden;
 }
 .tile-back span.icon{ font-size:1.5rem; margin-top:4px; }
 
-/* opened badge */
-.tile-back::before{
-  content:"✔ geöffnet"; position:absolute; top:10px; right:10px;
-  font-size:0.72rem; padding:4px 8px; border-radius:999px;
-  background: rgba(199,44,72,0.06); color:var(--accent);
+/* Glitter Effekt */
+.tile-back::after{
+  content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; border-radius:12px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25) 0%, transparent 70%),
+              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity:0; transition: opacity 0.6s; mix-blend-mode:screen;
+}
+.tile.open .tile-back::after{
+  opacity:1;
+  animation: sparkle 0.8s ease-out forwards;
+}
+@keyframes sparkle{
+  0%{ transform: scale(0.8) rotate(0deg); opacity:0; }
+  50%{ transform: scale(1.1) rotate(10deg); opacity:0.6; }
+  100%{ transform: scale(1) rotate(0deg); opacity:0; }
 }
 
-/* tile number */
-.tile .num{z-index:2; color:#fff; text-shadow:0 6px 20px rgba(0,0,0,0.6);}
-.tile.open .num{color:var(--accent); text-shadow:none;}
+/* Extra subtile Sterne auf Rückseite */
+.tile-back .star{
+  position:absolute;
+  width:4px; height:4px; background:white;
+  border-radius:50%; opacity:0;
+  animation: starPop 0.8s ease-out forwards;
+}
+@keyframes starPop{
+  0%{ transform: scale(0.5); opacity:0; }
+  50%{ transform: scale(1.2); opacity:0.8; }
+  100%{ transform: scale(1); opacity:0; }
+}
 
 @media(max-width:900px){.calendar{grid-template-columns:repeat(4,1fr);}.tile{height:120px;}}
-@media(max-width:560px){.calendar{grid-template-columns:repeat(3,1fr);gap:12px;}.tile{height:100px;font-size:1.15rem;}}
+@media(max-width:560px){.calendar{grid-template-columns:repeat(3,1fr);}.tile{height:100px;font-size:1.15rem;}}
