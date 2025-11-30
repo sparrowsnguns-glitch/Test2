@@ -1,3 +1,4 @@
+/* =================== USER LINKS: 24 KEINVERLAG-URLS =================== */
 const USER_LINKS = [
   "https://keinverlag.de/225083.text","https://keinverlag.de/504676.text","https://keinverlag.de/352776.text",
   "https://keinverlag.de/267108.text","https://keinverlag.de/499694.text","https://keinverlag.de/504471.text",
@@ -8,31 +9,64 @@ const USER_LINKS = [
   "https://keinverlag.de/504573.text","https://keinverlag.de/504649.text","https://keinverlag.de/504470.text",
   "https://keinverlag.de/493109.text","https://keinverlag.de/502711.text","https://keinverlag.de/499381.text"
 ];
+/* ===================================================================== */
 
 const DOORS = 24;
 let openedDoors = JSON.parse(localStorage.getItem('openedDoors')||"[]");
 const cal = document.getElementById('calendar');
+const leadEl = document.querySelector('.lead');
+
 const today = new Date();
-const realMode = false; // heute alles anklickbar
+const realModeStart = new Date('2025-12-01T00:00:00');
+
+// Testmodus aktiv vor dem 01.12.2025
+const testMode = today < realModeStart;
+
+// Lead-Text ausblenden ab 01.12.2025
+if(today >= realModeStart && leadEl) leadEl.style.display = 'none';
 
 function buildCalendar(){
   cal.innerHTML='';
   for(let i=0;i<DOORS;i++){
-    const tile = document.createElement('button'); tile.className='tile';
+    const tile = document.createElement('div'); tile.className='tile';
     const inner = document.createElement('div'); inner.className='tile-inner';
-    const front = document.createElement('div'); front.className='tile-front';
+    const front = document.createElement('div'); front.className='tile-front'; front.textContent=`${i+1}`;
     const back = document.createElement('div'); back.className='tile-back';
-    back.innerHTML = `<span>Tür ${i+1}</span><span class="icon">🎄</span>`;
-    front.innerHTML = `<span class="num">${i+1}</span>`;
+    back.innerHTML=`<span>Tür ${i+1}</span><span class="icon">🎄</span>`;
+
+    // Kleine Sterne zufällig auf Rückseite
+    for(let s=0;s<3;s++){
+      const star = document.createElement('div'); star.className='star';
+      star.style.top=`${Math.random()*70+10}%`;
+      star.style.left=`${Math.random()*70+10}%`;
+      back.appendChild(star);
+    }
+
     inner.appendChild(front); inner.appendChild(back);
     tile.appendChild(inner);
 
     if(openedDoors.includes(i)) tile.classList.add('open');
 
     tile.addEventListener('click', ()=>{
-      if(!realMode && (i+1)>today.getDate()) { alert(`Tür ${i+1} noch nicht verfügbar.`); return; }
-      window.open(USER_LINKS[i],'_blank');
-      if(!openedDoors.includes(i)){ openedDoors.push(i); localStorage.setItem('openedDoors',JSON.stringify(openedDoors)); tile.classList.add('open'); }
+      if(!testMode && (i+1)>today.getDate()){
+        alert(`Tür ${i+1} noch nicht verfügbar.`);
+        return;
+      }
+
+      tile.classList.add('open');
+
+      const backEl = tile.querySelector('.tile-back');
+      backEl.classList.remove('glitter');
+      void backEl.offsetWidth; // Reflow
+      backEl.classList.add('glitter');
+
+      // Link verzögert nach Animation öffnen
+      setTimeout(()=>{ window.open(USER_LINKS[i],'_blank'); }, 900);
+
+      if(!openedDoors.includes(i)){
+        openedDoors.push(i); 
+        localStorage.setItem('openedDoors',JSON.stringify(openedDoors));
+      }
     });
 
     cal.appendChild(tile);
@@ -40,7 +74,7 @@ function buildCalendar(){
 }
 buildCalendar();
 
-/* Snow Canvas */
+/* ===================== Snow Canvas ===================== */
 (function snow(){
   const canvas=document.getElementById('snow'); if(!canvas)return;
   const ctx=canvas.getContext('2d');
