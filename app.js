@@ -1,77 +1,84 @@
-const calendar = document.querySelector('.calendar');
-const today = new Date();
-const currentDay = today.getDate();
-const month = today.getMonth() + 1; // 1 = Januar
-
-// Alle möglichen Links (24 oder mehr, damit Zufall funktioniert)
-const links = [
-  "https://keinverlag.de/1",
-  "https://keinverlag.de/2",
-  "https://keinverlag.de/3",
-  "https://keinverlag.de/4",
-  "https://keinverlag.de/5",
-  "https://keinverlag.de/6",
-  "https://keinverlag.de/7",
-  "https://keinverlag.de/8",
-  "https://keinverlag.de/9",
-  "https://keinverlag.de/10",
-  "https://keinverlag.de/11",
-  "https://keinverlag.de/12",
-  "https://keinverlag.de/13",
-  "https://keinverlag.de/14",
-  "https://keinverlag.de/15",
-  "https://keinverlag.de/16",
-  "https://keinverlag.de/17",
-  "https://keinverlag.de/18",
-  "https://keinverlag.de/19",
-  "https://keinverlag.de/20",
-  "https://keinverlag.de/21",
-  "https://keinverlag.de/22",
-  "https://keinverlag.de/23",
-  "https://keinverlag.de/24"
-];
-
-// localStorage-Daten
-let doorLinks = JSON.parse(localStorage.getItem('doorLinks')) || {};
-let openedDoors = JSON.parse(localStorage.getItem('openedDoors')) || [];
-
-// Adventskalender nur im Dezember
-if (month === 12) {
-  for (let i = 1; i <= 24; i++) {
-    const door = document.createElement('div');
-    door.classList.add('door');
-    door.textContent = i;
-
-    // Tür bereits geöffnet
-    if (openedDoors.includes(i)) {
-      door.classList.add('open');
-    } 
-    // Tür noch nicht verfügbar
-    else if (i > currentDay) {
-      door.classList.add('locked');
-    }
-
-    door.addEventListener('click', () => {
-      if (i <= currentDay && !openedDoors.includes(i)) {
-        // Zufälligen Link auswählen, falls noch nicht gesetzt
-        if (!doorLinks[i]) {
-          const randomIndex = Math.floor(Math.random() * links.length);
-          doorLinks[i] = links[randomIndex];
-          localStorage.setItem('doorLinks', JSON.stringify(doorLinks));
-        }
-
-        // Tür öffnen
-        door.classList.add('open');
-        openedDoors.push(i);
-        localStorage.setItem('openedDoors', JSON.stringify(openedDoors));
-
-        // Link öffnen
-        window.open(doorLinks[i], '_blank');
-      }
-    });
-
-    calendar.appendChild(door);
-  }
-} else {
-  calendar.textContent = "Der Adventskalender ist nur im Dezember verfügbar.";
+// ----------------------
+// Zufallslinkgenerator
+// ----------------------
+function randomKV() {
+  const min = 225083;
+  const max = 504676;
+  const rnd = Math.floor(Math.random() * (max - min + 1)) + min;
+  return `https://keinverlag.de/${rnd}.text`;
 }
+
+// ----------------------
+// Kalender erstellen
+// ----------------------
+const calendar = document.getElementById("calendar");
+
+for (let i = 1; i <= 24; i++) {
+  const day = document.createElement("div");
+  day.classList.add("day");
+  day.textContent = i;
+
+  day.addEventListener("click", () => {
+    day.classList.add("open");
+    window.open(randomKV(), "_blank");
+  });
+
+  calendar.appendChild(day);
+}
+
+// ----------------------
+// SNOW CANVAS ANIMATION
+// ----------------------
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+const flakes = [];
+for (let i = 0; i < 180; i++) {
+  flakes.push({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 3 + 1,
+    d: Math.random() * 1
+  });
+}
+
+function drawSnow() {
+  ctx.clearRect(0, 0, w, h);
+
+  ctx.fillStyle = "rgba(255,255,255,0.9)";
+  ctx.beginPath();
+
+  for (let f of flakes) {
+    ctx.moveTo(f.x, f.y);
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+  }
+  ctx.fill();
+
+  updateSnow();
+}
+
+let angle = 0;
+
+function updateSnow() {
+  angle += 0.002;
+  for (let f of flakes) {
+    f.y += Math.cos(angle + f.d) + 1 + f.r / 3;
+    f.x += Math.sin(angle) * 0.5;
+
+    // reset
+    if (f.y > h) {
+      f.y = -10;
+      f.x = Math.random() * w;
+    }
+  }
+}
+
+setInterval(drawSnow, 33);
