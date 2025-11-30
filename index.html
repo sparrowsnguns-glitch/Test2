@@ -1,21 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adventskalender</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Adventskalender — KV x Premium</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <canvas id="snow"></canvas>
 
-<div class="header">
-  <h1>Adventskalender</h1>
-  <p class="subtitle">Ein literarischer Dezember</p>
-</div>
+<div class="wrap">
+  <header>
+    <div class="branding">
+      <div class="logo">KV</div>
+      <div class="titles">
+        <h1>Adventskalender</h1>
+        <p class="lead">Literarische Überraschungen — Testmodus bis 01.12.2025</p>
+      </div>
+    </div>
 
-<div class="calendar" id="calendar"></div>
+    <div class="controls">
+      <button id="adminToggle" class="btn">Admin</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="calendar" id="calendar" aria-live="polite"></div>
+
+    <div class="note">
+      <p id="modeNote">Testmodus aktiv — alle Türen sind anklickbar. Ab dem 01.12.2025 gilt die Tageslogik.</p>
+    </div>
+  </main>
+
+  <aside id="adminPanel" class="admin-panel hidden" aria-hidden="true">
+    <h3>Admin: Linkliste & Backup</h3>
+    <p>Import: eine URL pro Zeile (https://keinverlag.de/12345.text). Verwende den Node-Crawler (unten) zum Erzeugen einer geprüften Liste.</p>
+    <textarea id="importLinks" placeholder="https://keinverlag.de/12345.text"></textarea>
+    <div class="admin-actions">
+      <button id="importBtn" class="btn primary">Importieren</button>
+      <button id="exportBtn" class="btn">Exportieren (JSON)</button>
+      <button id="clearStorage" class="btn danger">LocalStorage zurücksetzen</button>
+    </div>
+    <p class="help">Fallbacks: bei fehlerhaften Links kannst du automatisch bis zu <strong id="maxFallbackCount"></strong> Fallbacks anstoßen.</p>
+  </aside>
+
+</div>
 
 <script src="app.js"></script>
 </body>
